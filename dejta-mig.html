@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dejta Fiesta</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe4e6;
+            color: #4b5563;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            text-align: left;
+        }
+        h1 {
+            color: #db2777;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+        input[type="submit"] {
+            background-color: #db2777;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        input[type="submit"]:hover {
+            background-color: #be185d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌸 Ansök om att Dejta Fiesta 🌸</h1>
+        <form id="datingForm">
+            <label for="name">Namn:</label>
+            <input type="text" id="name" name="name" placeholder="Ditt namn" required>
+
+            <label for="age">Ålder:</label>
+            <input type="number" id="age" name="age" placeholder="Din ålder" required>
+
+            <label for="hairColor">Hårfärg:</label>
+            <input type="text" id="hairColor" name="hairColor" placeholder="Din hårfärg" required>
+
+            <label for="height">Längd (cm):</label>
+            <input type="number" id="height" name="height" placeholder="Din längd i cm" required>
+
+            <label for="width">Bredd (cm):</label>
+            <input type="number" id="width" name="width" placeholder="Din bredd i cm" required>
+
+            <label for="bodycount">Bodycount:</label>
+            <input type="number" id="bodycount" name="bodycount" placeholder="Antal" required>
+
+            <label for="length">Kuklängd (cm):</label>
+            <input type="number" id="length" name="length" placeholder="Din kuklängd i cm" required>
+
+            <label for="city">Stad:</label>
+            <input type="text" id="city" name="city" placeholder="Din stad" required>
+
+            <label for="hobbies">Hobbies:</label>
+            <input type="text" id="hobbies" name="hobbies" placeholder="Dina hobbies" required>
+
+            <label for="attention">Är du villig att ge all din tid och uppmärksamhet till Fiesta?</label>
+            <input type="text" id="attention" name="attention" placeholder="Ja eller Nej" required>
+
+            <label for="why">Varför förtjänar du Fiesta?</label>
+            <textarea id="why" name="why" placeholder="Berätta varför just du är rätt för Fiesta..." required></textarea>
+
+            <input type="submit" value="Skicka">
+        </form>
+    </div>
+
+    <script>
+        // Discord Webhook URL (ändra till din egen webhook URL)
+        const webhookURL = "https://discord.com/api/webhooks/1343343122989449246/4LoiTAps49I3SKGXNu1XJlbyYdyLqgJxZVPr4w8p1rVCR-udNMzx3WiLiXKKFLuW_ibK";
+    
+        // Hämta formuläret och fånga eventet
+        document.getElementById("datingForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Förhindra formulärets standardåtgärd
+    
+            // Hämta formulärvärden
+            const name = document.getElementById("name").value;
+            const age = document.getElementById("age").value;
+            const hairColor = document.getElementById("hairColor").value;
+            const height = document.getElementById("height").value;
+            const width = document.getElementById("width").value;
+            const bodycount = document.getElementById("bodycount").value;
+            const length = document.getElementById("length").value;
+            const city = document.getElementById("city").value;
+            const hobbies = document.getElementById("hobbies").value;
+            const attention = document.getElementById("attention").value;
+            const why = document.getElementById("why").value;
+    
+            // Bygg meddelandet som ska skickas till Discord
+            const message = {
+                content: `**Nytt ansökningsformulär: Dejta Fiesta**\n
+                **Namn:** ${name}\n
+                **Ålder:** ${age}\n
+                **Hårfärg:** ${hairColor}\n
+                **Längd (cm):** ${height}\n
+                **Bredd (cm):** ${width}\n
+                **Bodycount:** ${bodycount}\n
+                **Kuklängd (cm):** ${length}\n
+                **Stad:** ${city}\n
+                **Hobbies:** ${hobbies}\n
+                **Är du villig att ge all din tid och uppmärksamhet till Fiesta?** ${attention}\n
+                **Varför förtjänar du Fiesta?** ${why}`
+            };
+    
+            // Skicka data till Discord webhook
+            fetch(webhookURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(message)
+            }).then(response => {
+                if (response.ok) {
+                    alert("Ansökan skickad till Fiesta!");
+                    // Omdirigera tillbaka till huvudsidan
+                    window.location.href = "main.html"; // Ändra till rätt URL om den inte är index.html
+                } else {
+                    alert("Något gick fel. Försök igen senare.");
+                }
+            }).catch(error => {
+                alert("Ett fel inträffade. Försök igen senare.");
+                console.error("Error sending to Discord:", error);
+            });
+        });
+    </script>
+    
